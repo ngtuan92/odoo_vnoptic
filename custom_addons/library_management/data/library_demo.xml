@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Books -->
+        <record id="book_python_programming" model="library.book">
+            <field name="name">Lập trình Python cơ bản</field>
+            <field name="author">Nguyễn Văn A</field>
+            <field name="isbn">978-0123456789</field>
+            <field name="publisher">NXB Giáo dục</field>
+            <field name="category">technology</field>
+            <field name="total_copies">3</field>
+            <field name="pages">350</field>
+            <field name="description">Sách hướng dẫn lập trình Python từ cơ bản đến nâng cao</field>
+        </record>
+
+        <record id="book_data_structures" model="library.book">
+            <field name="name">Cấu trúc dữ liệu và giải thuật</field>
+            <field name="author">Trần Thị B</field>
+            <field name="isbn">978-0987654321</field>
+            <field name="publisher">NXB Đại học Quốc gia</field>
+            <field name="category">technology</field>
+            <field name="total_copies">5</field>
+            <field name="pages">480</field>
+        </record>
+
+        <!-- Demo Members -->
+        <record id="member_student_001" model="library.member">
+            <field name="name">Lê Văn C</field>
+            <field name="member_id">MEM00001</field>
+            <field name="email">levanc@student.edu.vn</field>
+            <field name="member_type">student</field>
+            <field name="phone">0901234567</field>
+        </record>
+
+        <record id="member_teacher_001" model="library.member">
+            <field name="name">Phạm Thị D</field>
+            <field name="member_id">MEM00002</field>
+            <field name="email">phamthid@university.edu.vn</field>
+            <field name="member_type">teacher</field>
+            <field name="phone">0987654321</field>
+        </record>
+    </data>
+</odoo>

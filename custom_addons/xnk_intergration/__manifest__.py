@@ -1,0 +1,19 @@
+{
+    'name': 'Product Sync from Spring Boot',
+    'version': '16.0.1.0.0',
+    'category': 'Inventory',
+    'depends': ['base', 'stock', 'product', 'account'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/product_sync_views.xml',
+        'views/xnk_brand_views.xml',
+        'views/xnk_warranty_views.xml',
+        'data/ir_cron_data.xml',
+    ],
+    'external_dependencies': {
+        'python': ['requests', 'Pillow']
+    },
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
