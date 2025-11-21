@@ -19,6 +19,7 @@
         'views/product_frame_type_views.xml',
         'views/product_shape_views.xml',
         'views/product_ve_views.xml',
+        'views/product_creation_wizard_views.xml',
         'views/product_temple_views.xml',
         'views/product_template_views.xml',
         'views/product_lens_views.xml',

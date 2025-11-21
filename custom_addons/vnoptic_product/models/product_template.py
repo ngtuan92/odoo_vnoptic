@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class ProductTemplate(models.Model):
@@ -39,3 +39,42 @@ class ProductTemplate(models.Model):
 
     lens_ids = fields.One2many('product.lens', 'product_tmpl_id', 'Lens Details')
     opt_ids = fields.One2many('product.opt', 'product_tmpl_id', 'Optical Details')
+
+    @api.model
+    def create(self, vals):
+        """Override create để phân biệt product_type"""
+        product_type = vals.get('product_type', 'lens')
+
+        # Chỉ tạo lens_ids nếu product_type là 'lens'
+        if product_type != 'lens':
+            # Xóa lens_ids nếu có trong vals
+            if 'lens_ids' in vals:
+                del vals['lens_ids']
+
+        # Chỉ tạo opt_ids nếu product_type là 'opt'
+        if product_type != 'opt':
+            if 'opt_ids' in vals:
+                del vals['opt_ids']
+
+        return super().create(vals)
+
+    def write(self, vals):
+        """Override write để đảm bảo chỉ lưu đúng loại"""
+        product_type = vals.get('product_type') or self.product_type
+
+        # Nếu đang đổi product_type
+        if 'product_type' in vals:
+            # Xóa dữ liệu không phù hợp
+            if vals['product_type'] != 'lens':
+                # Xóa tất cả lens_ids
+                self.lens_ids.unlink()
+                if 'lens_ids' in vals:
+                    del vals['lens_ids']
+
+            if vals['product_type'] != 'opt':
+                # Xóa tất cả opt_ids
+                self.opt_ids.unlink()
+                if 'opt_ids' in vals:
+                    del vals['opt_ids']
+
+        return super().write(vals)

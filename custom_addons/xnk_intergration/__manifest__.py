@@ -1,5 +1,5 @@
 {
-    'name': 'Product Sync from Spring Boot',
+    'name': 'Product Sync from Server',
     'version': '16.0.1.0.0',
     'category': 'Inventory',
     'depends': ['base', 'stock', 'product', 'account'],

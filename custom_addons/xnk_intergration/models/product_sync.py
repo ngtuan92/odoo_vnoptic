@@ -10,7 +10,6 @@ import urllib3
 from odoo import models, fields, _
 from odoo.exceptions import UserError
 from odoo.fields import Image
-from odoo.tools import config
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -55,9 +54,11 @@ class ProductSync(models.Model):
 
     def _login_spring_boot(self):
         try:
+            config = self._get_config()  # ← THÊM DÒNG NÀY
+
             login_url = f"{config['base_url']}{config['login_endpoint']}"
 
-            _logger.info(f"Logging into Spring Boot as: {self.spring_boot_username}")
+            _logger.info(f"Logging into Spring Boot as: {config['username']}")
 
             response = requests.post(
                 login_url,
@@ -175,9 +176,9 @@ class ProductSync(models.Model):
     Total: {success} synced, {failed} failed
 
     Categories:
-    🔬 Lens: {stats['lens']}
-    👓 Frames: {stats['opts']}
-    📦 Others: {stats['other']}
+    Lens: {stats['lens']}
+    Frames: {stats['opts']}
+    Others: {stats['other']}
 
     Date: {fields.Datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                     """
@@ -256,6 +257,14 @@ class ProductSync(models.Model):
 
                     main_category = category_mapping.get(group_type_name, 'Accessories')
 
+                    # Map sang product_type cho model vnoptic_product
+                    product_type_mapping = {
+                        'Mắt': 'lens',
+                        'Gọng': 'opt',
+                        'Khác': 'accessory'
+                    }
+                    product_type = product_type_mapping.get(group_type_name, 'accessory')
+
                     # Đếm theo loại
                     if group_type_name == 'Mắt':
                         stats['lens'] += 1
@@ -306,6 +315,9 @@ class ProductSync(models.Model):
                         'list_price': rt_price,
                         'standard_price': or_price,
                         'taxes_id': taxes_ids,
+
+                        # Thêm product_type để phân loại đúng
+                        'product_type': product_type,  # 'lens', 'opt', hoặc 'accessory'
 
                         'x_eng_name': p.get('engName') or '',
                         'x_trade_name': p.get('tradeName') or '',
@@ -371,7 +383,6 @@ class ProductSync(models.Model):
     # ==================== HELPER METHODS ====================
 
     def _get_or_create_category(self, category_name, parent_name=None):
-        """Tạo hoặc lấy product category với parent"""
         Category = self.env['product.category']
 
         if not category_name:
@@ -617,48 +628,15 @@ class ProductSync(models.Model):
             return False
 
     def test_api_connection(self):
-        """Test login và API"""
         try:
+            config = self._get_config()  # ← THÊM
             token = self._login_spring_boot()
 
-            api_url = 'https://localhost:8443/api/xnk/products'
+            api_url = f"{config['base_url']}{config['products_endpoint']}"  # ← SỬA
 
             response = requests.get(
                 api_url,
-                verify=False,
-                timeout=30,
-                headers={
-                    'Content-Type': 'application/json',
-                    'Authorization': f'Bearer {token}'
-                }
-            )
-
-            if response.status_code == 200:
-                return {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'title': _('✅ Success'),
-                        'message': 'Login OK! API is working!',
-                        'type': 'success',
-                    }
-                }
-            else:
-                raise UserError(_('API error: %s') % response.status_code)
-
-        except Exception as e:
-            raise UserError(_('Test failed: %s') % str(e))
-
-    def test_api_connection(self):
-        """Test login và API"""
-        try:
-            token = self._login_spring_boot()
-
-            api_url = 'https://localhost:8443/api/xnk/products'
-
-            response = requests.get(
-                api_url,
-                verify=False,
+                verify=config['ssl_verify'],  # ← SỬA
                 timeout=30,
                 headers={
                     'Content-Type': 'application/json',

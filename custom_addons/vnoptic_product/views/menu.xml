@@ -1,163 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Main Menu -->
     <menuitem id="menu_vnoptic_main"
               name="VNOPTIC"
               sequence="10"/>
 
-    <!-- Configuration Menu -->
-    <menuitem id="menu_vnoptic_configuration"
-              name="Configuration"
+    <menuitem id="menu_vnoptic_product_create"
+              name="Thêm sản phẩm"
               parent="menu_vnoptic_main"
-              sequence="10"/>
+              action="action_product_creation_wizard"
+              sequence="1"/>
 
-    <!-- Lens Products Menu -->
     <menuitem id="menu_lens_products_main"
               name="Lens Products"
               parent="menu_vnoptic_main"
+              sequence="10"/>
+
+    <menuitem id="menu_lens_products"
+              name="Products"
+              parent="menu_lens_products_main"
+              action="action_lens_products"
+              sequence="10"/>
+
+    <menuitem id="menu_lens_details"
+              name="Product Details"
+              parent="menu_lens_products_main"
+              action="action_product_lens"
               sequence="20"/>
 
-    <!-- Optical Products Menu -->
     <menuitem id="menu_optical_products_main"
               name="Optical Products"
               parent="menu_vnoptic_main"
+              sequence="20"/>
+
+    <menuitem id="menu_opt_products"
+              name="Products"
+              parent="menu_optical_products_main"
+              action="action_opt_products"
+              sequence="10"/>
+
+    <menuitem id="menu_opt_details"
+              name="Product Details"
+              parent="menu_optical_products_main"
+              action="action_product_opt"
+              sequence="20"/>
+
+    <menuitem id="menu_accessory_products_main"
+              name="Other Products"
+              parent="menu_vnoptic_main"
               sequence="30"/>
 
-    <!-- Product Status -->
+    <menuitem id="menu_accessory_products"
+              name="Products"
+              parent="menu_accessory_products_main"
+              action="action_accessory_products"
+              sequence="10"/>
+
+    <menuitem id="menu_vnoptic_configuration"
+              name="Configuration"
+              parent="menu_vnoptic_main"
+              sequence="90"/>
+
     <menuitem id="menu_product_status"
               name="Product Status"
               parent="menu_vnoptic_configuration"
               action="action_product_status"
               sequence="10"/>
 
-    <!-- Product Groups -->
     <menuitem id="menu_product_group"
               name="Product Groups"
               parent="menu_vnoptic_configuration"
               action="action_product_group"
               sequence="20"/>
 
-    <!-- Product Warranty -->
     <menuitem id="menu_product_warranty"
               name="Product Warranty"
               parent="menu_vnoptic_configuration"
               action="action_product_warranty"
               sequence="30"/>
 
-    <!-- Lens Master Data Menu -->
-    <menuitem id="menu_lens_master_data"
-              name="Master Data"
-              parent="menu_lens_products_main"
-              sequence="10"/>
-
-    <!-- Design -->
-    <menuitem id="menu_product_design"
-              name="Design"
-              parent="menu_lens_master_data"
-              action="action_product_design"
-              sequence="10"/>
-
-    <!-- UV Protection -->
-    <menuitem id="menu_product_uv"
-              name="UV Protection"
-              parent="menu_lens_master_data"
-              action="action_product_uv"
-              sequence="20"/>
-
-    <!-- Color/Lens Type -->
-    <menuitem id="menu_product_cl"
-              name="Color/Lens Type"
-              parent="menu_lens_master_data"
-              action="action_product_cl"
-              sequence="30"/>
-
-    <!-- Lens Index -->
-    <menuitem id="menu_product_lens_index"
-              name="Lens Index"
-              parent="menu_lens_master_data"
-              action="action_product_lens_index"
-              sequence="40"/>
-
-    <!-- Material -->
-    <menuitem id="menu_product_material"
-              name="Material"
-              parent="menu_lens_master_data"
-              action="action_product_material"
-              sequence="50"/>
-
-    <!-- Coating -->
-    <menuitem id="menu_product_coating"
-              name="Coating"
-              parent="menu_lens_master_data"
-              action="action_product_coating"
-              sequence="60"/>
-
-    <!-- Lens Products -->
-    <menuitem id="menu_lens_products"
-              name="Products"
-              parent="menu_lens_products_main"
-              action="action_lens_products"
-              sequence="20"/>
-
-    <!-- Lens Details -->
-    <menuitem id="menu_lens_details"
-              name="Product Details"
-              parent="menu_lens_products_main"
-              action="action_product_lens"
-              sequence="30"/>
-
-    <!-- Optical Master Data Menu -->
-    <menuitem id="menu_opt_master_data"
-              name="Master Data"
-              parent="menu_optical_products_main"
-              sequence="10"/>
-
-    <!-- Frame -->
-    <menuitem id="menu_product_frame"
-              name="Frame"
-              parent="menu_opt_master_data"
-              action="action_product_frame"
-              sequence="10"/>
-
-    <!-- Frame Type -->
-    <menuitem id="menu_product_frame_type"
-              name="Frame Type"
-              parent="menu_opt_master_data"
-              action="action_product_frame_type"
-              sequence="20"/>
-
-    <!-- Shape -->
-    <menuitem id="menu_product_shape"
-              name="Shape"
-              parent="menu_opt_master_data"
-              action="action_product_shape"
-              sequence="30"/>
-
-    <!-- VE (Front Part) -->
-    <menuitem id="menu_product_ve"
-              name="VE (Front Part)"
-              parent="menu_opt_master_data"
-              action="action_product_ve"
-              sequence="40"/>
-
-    <!-- Temple -->
-    <menuitem id="menu_product_temple"
-              name="Temple"
-              parent="menu_opt_master_data"
-              action="action_product_temple"
-              sequence="50"/>
-
-
-    <!-- Optical Products -->
-    <menuitem id="menu_opt_products"
-              name="Products"
-              parent="menu_optical_products_main"
-              action="action_opt_products"
-              sequence="20"/>
-
-    <!-- Optical Details -->
-    <menuitem id="menu_opt_details"
-              name="Product Details"
-              parent="menu_optical_products_main"
-              action="action_product_opt"
-              sequence="30"/>
 </odoo>

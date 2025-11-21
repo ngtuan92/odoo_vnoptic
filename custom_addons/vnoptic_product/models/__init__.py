@@ -1,5 +1,6 @@
 from . import product_cl
 from . import product_coating
+from . import product_creation_wizard
 from . import product_design
 from . import product_frame
 from . import product_frame_type
