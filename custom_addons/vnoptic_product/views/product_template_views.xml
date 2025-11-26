@@ -1,11 +1,4 @@
 <odoo>
-    <record id="action_product_creation_wizard" model="ir.actions.act_window">
-        <field name="name">Thêm sản phẩm</field>
-        <field name="res_model">product.creation.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_product_creation_wizard"/>
-        <field name="target">new</field>
-    </record>
     <!-- Action for Lens Products -->
     <record id="action_lens_products" model="ir.actions.act_window">
         <field name="name">Lens Products</field>
@@ -40,9 +33,7 @@
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('product_type', '=', 'accessory')]</field>
-        <field name="context">
-            {'default_product_type': 'accessory', 'search_default_product_type': 'accessory'}
-        </field>
+        <field name="context">{'default_product_type': 'accessory', 'search_default_product_type': 'accessory'}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first accessory product!
@@ -58,16 +49,13 @@
             <xpath expr="//field[@name='list_price']" position="after">
                 <group string="VNOPTIC Product Information">
                     <group>
-                        <field name="cid"/>
                         <field name="eng_name"/>
                         <field name="trade_name"/>
                         <field name="product_type"/>
                     </group>
-                    <!-- ... other fields ... -->
                 </group>
 
                 <notebook>
-                    <!-- Tab Lens Details - CHỈ hiển thị khi product_type = 'lens' -->
                     <page string="Lens Details"
                           attrs="{'invisible': [('product_type', '!=', 'lens')]}">
                         <field name="lens_ids" nolabel="1">
@@ -78,12 +66,10 @@
                                 <field name="sph"/>
                                 <field name="cyl"/>
                                 <field name="len_add"/>
-                                <!-- ... other lens fields ... -->
                             </tree>
                         </field>
                     </page>
 
-                    <!-- Tab Optical Details - CHỈ hiển thị khi product_type = 'opt' -->
                     <page string="Optical Details"
                           attrs="{'invisible': [('product_type', '!=', 'opt')]}">
                         <field name="opt_ids" nolabel="1">
@@ -93,12 +79,10 @@
                                 <field name="serial"/>
                                 <field name="sku"/>
                                 <field name="gender"/>
-                                <!-- ... other opt fields ... -->
                             </tree>
                         </field>
                     </page>
 
-                    <!-- Tab Other Details - CHỈ hiển thị khi product_type = 'other' hoặc 'accessory' -->
                     <page string="Other Details"
                           attrs="{'invisible': ['|', ('product_type', '=', 'lens'), ('product_type', '=', 'opt')]}">
                         <group>

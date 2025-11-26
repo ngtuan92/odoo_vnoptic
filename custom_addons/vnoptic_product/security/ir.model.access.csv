@@ -16,3 +16,5 @@ access_product_ve,product.ve,model_product_ve,base.group_user,1,1,1,1
 access_product_temple,product.temple,model_product_temple,base.group_user,1,1,1,1
 access_product_lens,product.lens,model_product_lens,base.group_user,1,1,1,1
 access_product_opt,product.opt,model_product_opt,base.group_user,1,1,1,1
+access_product_creation_wizard,product.creation.wizard,model_product_creation_wizard,base.group_user,1,1,1,0
+access_product_creation_wizard,product.creation.wizard,model_product_creation_wizard,base.group_user,1,1,1,0

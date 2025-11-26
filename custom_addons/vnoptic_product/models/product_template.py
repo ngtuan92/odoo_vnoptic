@@ -4,7 +4,6 @@ from odoo import models, fields, api
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    cid = fields.Char("Product Code", required=True)
     eng_name = fields.Char("English Name")
     trade_name = fields.Char("Trade Name")
 
@@ -78,3 +77,55 @@ class ProductTemplate(models.Model):
                     del vals['opt_ids']
 
         return super().write(vals)
+
+    @api.model
+    def default_get(self, fields_list):
+        """Override default_get to prevent _unknown object errors"""
+        res = super().default_get(fields_list)
+        
+        # Initialize all Many2one fields to False to prevent _unknown objects
+        many2one_fields = [
+            'supplier_id', 'group_id', 'status_group_id', 'warranty_id',
+            'currency_zone_id', 'status_product_id'
+        ]
+        
+        for field in many2one_fields:
+            if field in fields_list and field not in res:
+                res[field] = False
+        
+        return res
+
+    def action_fix_product_type(self):
+        """Fix product_type for existing products based on lens_ids/opt_ids or group_id"""
+        for product in self:
+            # Skip if already has correct product_type
+            if product.product_type and product.product_type != 'lens':
+                continue
+                
+            # Method 1: Auto-detect based on existing lens_ids/opt_ids
+            if product.lens_ids:
+                product.product_type = 'lens'
+            elif product.opt_ids:
+                product.product_type = 'opt'
+            # Method 2: Detect based on group_id name (for API synced products)
+            elif product.group_id:
+                group_name = product.group_id.name
+                if 'Mắt' in group_name or 'Lens' in group_name or 'lens' in group_name:
+                    product.product_type = 'lens'
+                elif 'Gọng' in group_name or 'Optical' in group_name or 'opt' in group_name.lower():
+                    product.product_type = 'opt'
+                else:
+                    product.product_type = 'accessory'
+            else:
+                # If no detail data and no group, keep as accessory or default
+                if not product.product_type:
+                    product.product_type = 'accessory'
+        
+        return True
+
+    @api.model
+    def cron_fix_all_product_types(self):
+        """Cron job to fix all product types - can be run manually"""
+        products = self.search([])
+        products.action_fix_product_type()
+        return True

@@ -1,126 +1,170 @@
 <odoo>
-    <record id="view_product_creation_wizard" model="ir.ui.view">
-        <field name="name">product.creation.wizard.form</field>
+    <record id="view_product_creation_wizard_v2" model="ir.ui.view">
+        <field name="name">product.creation.wizard.form.v2</field>
         <field name="model">product.creation.wizard</field>
         <field name="arch" type="xml">
-            <form string="Thêm sản phẩm VNOPTIC">
-                <group>
-                    <field name="step" invisible="1"/>
-                </group>
-
-                <div attrs="{'invisible': [('step','!=','choose_type')]}">
-                    <group>
-                        <field name="group_type_id" required="1"/>
-                        <field name="product_type" readonly="1"/>
-                    </group>
-                </div>
-
-                <sheet attrs="{'invisible': [('step','!=','general')]}">
-                    <group>
-                        <group string="Thông tin chung">
-                            <field name="cid"/>
-                            <field name="name"/>
-                            <field name="eng_name"/>
-                            <field name="trade_name"/>
-                            <field name="unit"/>
-                        </group>
-                        <group string="Nguồn gốc">
-                            <field name="supplier_id"/>
-                            <field name="brand_id"/>
-                            <field name="country_id"/>
-                        </group>
-                    </group>
+            <form string="Thêm sản phẩm">
+                <field name="product_type" invisible="1"/>
+                <header>
+                    <button string="THÊM MỚI SẢN PHẨM" name="action_create_product" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
                     <group>
                         <group>
-                            <field name="rt_price"/>
-                            <field name="currency_id"/>
+                            <field name="cid" string="Ký hiệu viết tắt" readonly="1" placeholder="010000000000"/>
+                            <field name="name" string="Tên đầy đủ" placeholder="Mắt" required="1"/>
+                            <field name="eng_name" string="Tên Tiếng anh" placeholder="Lens" required="1"/>
+                            <field name="trade_name" string="Tên Thương mại" placeholder="Nhập tên thương mại"/>
+                            <field name="unit" string="Đơn vị" placeholder="Chiếc" required="1"/>
+                        </group>
+
+                        <group>
+                            <field name="brand_id" string="Thương hiệu" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="supplier_id" string="Nhà cung cấp"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="country_id" string="Xuất xứ" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="rt_price" string="Giá nguyên tệ"/>
+                            <field name="currency_id" string="Đơn vị nguyên tệ"
+                                   options="{'no_create': True, 'no_open': True}"/>
                         </group>
                         <group>
-                            <field name="warranty_supplier"/>
-                            <field name="warranty_company"/>
-                            <field name="warranty_retail"/>
+                            <label for="description" string="mô tả"/>
+                            <field name="description" string="mô tả" placeholder="Nhập mô tả sản phẩm" nolabel="1"/>
                         </group>
                     </group>
+
                     <group>
-                        <field name="description"/>
-                        <field name="uses"/>
-                        <field name="guide"/>
-                        <field name="warning"/>
-                        <field name="preserve"/>
+                        <field name="uses" string="Công dụng" placeholder="Nhập công dụng"/>
                     </group>
-                </sheet>
 
-                <sheet attrs="{'invisible': ['|',('step','!=','details'),('product_type','!=','lens')]}">
-                    <group string="Thiết kế (Lens)">
-                        <field name="sph"/>
-                        <field name="cyl"/>
-                        <field name="base_curve"/>
-                        <field name="diameter"/>
-                        <field name="prism"/>
-                        <field name="len_add"/>
-                        <field name="design1_id"/>
-                        <field name="design2_id"/>
-                    </group>
-                    <group string="Chất liệu &amp; Tích hợp">
-                        <field name="uv_id"/>
-                        <field name="cl_hmc_id"/>
-                        <field name="cl_pho_id"/>
-                        <field name="cl_tint_id"/>
-                        <field name="material_id"/>
-                        <field name="coating_ids" widget="many2many_tags"/>
-                    </group>
-                </sheet>
-
-                <sheet attrs="{'invisible': ['|',('step','!=','details'),('product_type','!=','opt')]}">
-                    <group string="Thông tin sản phẩm (Gọng)">
-                        <field name="season"/>
-                        <field name="model_name"/>
-                        <field name="serial"/>
-                        <field name="sku"/>
-                        <field name="color_code"/>
-                        <field name="gender"/>
-                    </group>
-                    <group string="Thiết kế &amp; Chất liệu">
-                        <field name="frame_id"/>
-                        <field name="frame_type_id"/>
-                        <field name="shape_id"/>
-                        <field name="ve_id"/>
-                        <field name="temple_id"/>
-                        <field name="material_front_ids" widget="many2many_tags"/>
-                        <field name="material_temple_ids" widget="many2many_tags"/>
-                        <field name="color"/>
-                        <field name="lens_color"/>
-                        <field name="temple_color"/>
-                    </group>
-                    <group string="Kích thước">
-                        <field name="lens_width"/>
-                        <field name="lens_height"/>
-                        <field name="bridge_width"/>
-                        <field name="temple_width"/>
-                        <field name="lens_span"/>
-                    </group>
-                </sheet>
-
-                <sheet attrs="{'invisible': [('step','!=','confirm')]}">
-                    <div class="o_form_label" string="Kiểm tra lại thông tin trước khi tạo sản phẩm."/>
                     <group>
-                        <field name="product_type" readonly="1"/>
-                        <field name="name" readonly="1"/>
-                        <field name="cid" readonly="1"/>
-                        <field name="rt_price" readonly="1"/>
+                        <field name="guide" string="Hướng dẫn sử dụng" placeholder="Nhập hướng dẫn sử dụng"/>
                     </group>
-                </sheet>
 
-                <footer>
-                    <button string="Hủy" class="btn-secondary" special="cancel"/>
-                    <button string="Quay lại" type="object" name="action_prev"
-                            attrs="{'invisible': [('step','=','choose_type')]}"/>
-                    <button string="Tiếp theo" type="object" name="action_next"
-                            attrs="{'invisible': [('step','=','confirm')]}"/>
-                    <button string="Tạo sản phẩm" type="object" name="action_create_product"
-                            class="btn-primary"
-                            attrs="{'invisible': [('step','!=','confirm')]}"/>
-                </footer>
+                    <group>
+                        <group>
+                            <label for="warning" string="Cảnh báo"/>
+                            <field name="warning" string="Cảnh báo" placeholder="Nhập cảnh báo" nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <label for="preserve" string="Bảo quản"/>
+                            <field name="preserve" string="Bảo quản" placeholder="Nhập bảo quản" nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="warranty_supplier" string="Bảo hành hãng"/>
+                            <field name="warranty_company" string="Bảo hành công ty"/>
+                            <field name="warranty_retail" string="Bảo hành bán lẻ"/>
+                        </group>
+                        <group>
+                            <field name="group_type_id" string="Hãng định kèm"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Thiết kế" attrs="{'invisible': [('product_type', '!=', 'lens')]}">
+                            <group>
+                                <group>
+                                    <field name="sph" string="SPH ( - )" placeholder="Nhập SPH"/>
+                                    <field name="cyl" string="CYL" placeholder="Nhập CYL"/>
+                                    <field name="base_curve" string="Base Curse" placeholder="Nhập Base Curse"/>
+                                    <field name="design1_id" string="Thiết kế 1"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                                <group>
+                                    <field name="diameter" string="Đường kính" placeholder="Nhập đường kính"/>
+                                    <field name="prism" string="Prism" placeholder="Nhập prism"/>
+                                    <field name="len_add" string="ADD" placeholder="Nhập add"/>
+                                    <field name="design2_id" string="Thiết kế 2"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Chất liệu" attrs="{'invisible': [('product_type', '!=', 'lens')]}">
+                            <group>
+                                <group>
+                                    <field name="material_id" string="Chất suất"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="uv_id" string="UV" options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                                <group>
+                                    <field name="cl_hmc_id" string="HMC"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="cl_pho_id" string="Pho Col"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="cl_tint_id" string="Tint Col"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="coating_ids" string="Coating" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Thông tin sản phẩm" attrs="{'invisible': [('product_type', '!=', 'opt')]}">
+                            <group>
+                                <group>
+                                    <field name="season" string="Season" placeholder="Season"/>
+                                    <field name="model_name" string="Model Name" placeholder="Model Name"/>
+                                    <field name="serial" string="Serial" placeholder="Serial"/>
+                                    <field name="sku" string="SKU" placeholder="SKU"/>
+                                    <field name="color_code" string="Color Code" placeholder="Color Code"/>
+                                    <field name="gender" string="Gender"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Thiết kế &amp; Chất liệu" attrs="{'invisible': [('product_type', '!=', 'opt')]}">
+                            <group>
+                                <group>
+                                    <field name="frame_id" string="Frame"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="frame_type_id" string="Frame Type"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="shape_id" string="Shape"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="ve_id" string="Ve" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="temple_id" string="Temple"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                                <group>
+                                    <field name="material_front_ids" string="Material Front" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="material_temple_ids" string="Material Temple" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="color" string="Color" placeholder="Color"/>
+                                    <field name="lens_color" string="Lens Color" placeholder="Lens Color"/>
+                                    <field name="temple_color" string="Temple Color" placeholder="Temple Color"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Kích thước" attrs="{'invisible': [('product_type', '!=', 'opt')]}">
+                            <group>
+                                <group>
+                                    <field name="lens_width" string="Lens Width"/>
+                                    <field name="lens_height" string="Lens Height"/>
+                                    <field name="bridge_width" string="Bridge Width"/>
+                                </group>
+                                <group>
+                                    <field name="temple_width" string="Temple Width"/>
+                                    <field name="lens_span" string="Lens Span"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

@@ -1,81 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_vnoptic_main"
-              name="VNOPTIC"
-              sequence="10"/>
+    <menuitem id="menu_vnoptic_main" name="VNOPTIC" sequence="10"/>
 
-    <menuitem id="menu_vnoptic_product_create"
-              name="Thêm sản phẩm"
-              parent="menu_vnoptic_main"
-              action="action_product_creation_wizard"
-              sequence="1"/>
-
-    <menuitem id="menu_lens_products_main"
-              name="Lens Products"
-              parent="menu_vnoptic_main"
-              sequence="10"/>
-
+    <menuitem id="menu_lens_products_main" name="Lens Products" parent="menu_vnoptic_main" sequence="10"/>
     <menuitem id="menu_lens_products"
               name="Products"
               parent="menu_lens_products_main"
               action="action_lens_products"
+              sequence="1"/>
+    <menuitem id="menu_lens_add"
+              name="Thêm Lens"
+              parent="menu_lens_products_main"
+              action="action_product_creation_wizard_lens_v2"
               sequence="10"/>
-
     <menuitem id="menu_lens_details"
               name="Product Details"
               parent="menu_lens_products_main"
               action="action_product_lens"
               sequence="20"/>
 
-    <menuitem id="menu_optical_products_main"
-              name="Optical Products"
-              parent="menu_vnoptic_main"
-              sequence="20"/>
-
+    <menuitem id="menu_optical_products_main" name="Optical Products" parent="menu_vnoptic_main" sequence="20"/>
     <menuitem id="menu_opt_products"
               name="Products"
               parent="menu_optical_products_main"
               action="action_opt_products"
+              sequence="1"/>
+    <menuitem id="menu_opt_add"
+              name="Thêm OPT"
+              parent="menu_optical_products_main"
+              action="action_product_creation_wizard_opt_v2"
               sequence="10"/>
-
     <menuitem id="menu_opt_details"
               name="Product Details"
               parent="menu_optical_products_main"
               action="action_product_opt"
               sequence="20"/>
 
-    <menuitem id="menu_accessory_products_main"
-              name="Other Products"
-              parent="menu_vnoptic_main"
-              sequence="30"/>
-
+    <menuitem id="menu_accessory_products_main" name="Other Products" parent="menu_vnoptic_main" sequence="30"/>
     <menuitem id="menu_accessory_products"
               name="Products"
               parent="menu_accessory_products_main"
               action="action_accessory_products"
+              sequence="1"/>
+    <menuitem id="menu_other_add"
+              name="Thêm Khác"
+              parent="menu_accessory_products_main"
+              action="action_product_creation_wizard_other_v2"
               sequence="10"/>
 
-    <menuitem id="menu_vnoptic_configuration"
-              name="Configuration"
-              parent="menu_vnoptic_main"
-              sequence="90"/>
-
+    <menuitem id="menu_vnoptic_configuration" name="Configuration" parent="menu_vnoptic_main" sequence="90"/>
     <menuitem id="menu_product_status"
               name="Product Status"
               parent="menu_vnoptic_configuration"
               action="action_product_status"
               sequence="10"/>
-
     <menuitem id="menu_product_group"
               name="Product Groups"
               parent="menu_vnoptic_configuration"
               action="action_product_group"
               sequence="20"/>
-
     <menuitem id="menu_product_warranty"
               name="Product Warranty"
               parent="menu_vnoptic_configuration"
               action="action_product_warranty"
               sequence="30"/>
-
 </odoo>
